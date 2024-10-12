@@ -43,6 +43,7 @@ def funcao(funcao_str, valor):
     resultado = funcao.subs(x, valor)
     return resultado
 
+# Gera uma função aleatória de primeiro ou segundo grau e plota o gráfico dela
 def main():
     
     choice = random.randint(1, 2)
