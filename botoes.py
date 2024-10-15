@@ -3,7 +3,7 @@ from calculadora import calcular
 N = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 cont = 0
 
-def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F, X, Y, M):
+def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M):
     case = int(case)
     match case:
         # SHIFT
@@ -21,7 +21,11 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
             return "Executando o case 1"
         # MODE  # CLR
         case 4:
-            return "Executando o case 2"
+            opcao_mode = input("Item de configuração (1-3): ")
+            if (int(opcao_mode) == 1):
+                num_decimais = int(input("Numero de casas decimais: "))
+                return equacao, resultado, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M
+
         # ON
         case 5:
             return "Executando o case 1"
@@ -259,8 +263,9 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
         # =     # %
         case 47:
             if not shift:
-                resultado = calcular(equacao)
+                resultado = calcular(equacao, num_decimais)
+                equacao = []
             if shift:
                 equacao.append('%')
 #          equacao, resultado, shift, alpha, store, A, B, C, D, E, F, X, Y, M
-    return equacao, resultado, False, False, False, A, B, C, D, E, F, X, Y, M
+    return equacao, resultado, False, False, False, num_decimais, A, B, C, D, E, F, X, Y, M

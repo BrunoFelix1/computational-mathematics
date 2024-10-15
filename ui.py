@@ -1,6 +1,8 @@
 def tela(equacao, resultado):
     equacao = ''.join(equacao)
-    print(equacao)
-    print(resultado)
+    if (equacao):
+        print(equacao)
+    if (resultado):
+        print(resultado[0])
     print("-----------")
 

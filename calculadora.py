@@ -13,12 +13,12 @@ def substituir_caracteres(expressao, substituicoes):
         expressao = expressao.replace(char, substituto)
     return expressao
 
-def calcular(expressao):
+def calcular(expressao, num_decimais):
     expressao = ''.join(expressao)
     expressao = substituir_caracteres(expressao, substituicoes)
     expressao = sympify(expressao)
     r = symbols('r')
     expressao = Eq(expressao, r)
     solution = solve(expressao, r)
-    solution = [sol.evalf() for sol in solution]
+    solution = [f"{sol.evalf():.{num_decimais}f}" for sol in solution]
     return solution
