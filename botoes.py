@@ -1,4 +1,4 @@
-from calculadora import calcular
+from calculadora import *
 
 N = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 cont = 0
@@ -10,12 +10,12 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
         case 1:
             shift = True
             alpha = False
-            return equacao, shift, alpha, False, A, B, C, D, E, F, X, Y, M
+            return equacao, resultado, shift, alpha, False, num_decimais, A, B, C, D, E, F, X, Y, M
         # ALPHA
         case 2:
             alpha = True
             shift = False
-            return equacao, shift, alpha, False, A, B, C, D, E, F, X, Y, M
+            return equacao, resultado, shift, alpha, False, num_decimais, A, B, C, D, E, F, X, Y, M
         # REPLAY
         case 3:
             return "Executando o case 1"
@@ -25,7 +25,6 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
             if (int(opcao_mode) == 1):
                 num_decimais = int(input("Numero de casas decimais: "))
                 return equacao, resultado, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M
-
         # ON
         case 5:
             return "Executando o case 1"
@@ -74,7 +73,13 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
             if not shift:
                 equacao.append('^')
             if shift:
-                equacao.append('√')
+                # equacao.append('√')
+                indice = raiz_while()
+                print(indice)
+                radicando = raiz_while()
+                print(radicando)
+                resultado = calcular_raiz(indice, radicando)
+                equacao.append(resultado)
         # log   # 10^x
         case 14:
             if not shift:
@@ -156,7 +161,7 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
                 ''
             if shift:
                 store = True
-                return equacao, False, False, store, A, B, C, D, E, F, X, Y, M
+                return equacao, resultado, False, False, store, num_decimais, A, B, C, D, E, F, X, Y, M
         # ENG   # <--
         case 23:
             return "Executando o case 1"
@@ -269,3 +274,16 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
                 equacao.append('%')
 #          equacao, resultado, shift, alpha, store, A, B, C, D, E, F, X, Y, M
     return equacao, resultado, False, False, False, num_decimais, A, B, C, D, E, F, X, Y, M
+
+def raiz_while():
+    equacao = []
+    resultado = A = B = C = D = E = F = X = Y = M = None
+    num_decimais = 2
+    shift = alpha = store = False
+    input_char = ''
+    expressao = []
+    while(')' not in expressao):
+        input_char = input("Indice da raiz: ")
+        expressao = switch_case(equacao, resultado, input_char, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M)
+        return expressao
+    

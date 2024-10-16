@@ -22,3 +22,6 @@ def calcular(expressao, num_decimais):
     solution = solve(expressao, r)
     solution = [f"{sol.evalf():.{num_decimais}f}" for sol in solution]
     return solution
+
+def calcular_raiz(indice, radicando):
+    return root(radicando, indice)
