@@ -276,14 +276,12 @@ def switch_case(equacao, resultado, case, shift, alpha, store, num_decimais, A, 
     return equacao, resultado, False, False, False, num_decimais, A, B, C, D, E, F, X, Y, M
 
 def raiz_while():
-    equacao = []
     resultado = A = B = C = D = E = F = X = Y = M = None
     num_decimais = 2
     shift = alpha = store = False
-    input_char = ''
     expressao = []
     while(')' not in expressao):
         input_char = input("Indice da raiz: ")
-        expressao = switch_case(equacao, resultado, input_char, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M)
-        return expressao
+        expressao, resultado, shift, aplha, store, num_decimais, A, B, C, D, E, F, X, Y, M = switch_case(expressao, resultado, input_char, shift, alpha, store, num_decimais, A, B, C, D, E, F, X, Y, M)
+    return expressao
     

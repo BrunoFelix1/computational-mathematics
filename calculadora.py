@@ -24,4 +24,8 @@ def calcular(expressao, num_decimais):
     return solution
 
 def calcular_raiz(indice, radicando):
+    indice = ''.join(indice)
+    radicando = ''.join(radicando)
+    indice = substituir_caracteres(indice, substituicoes)
+    radicando = substituir_caracteres(radicando, substituicoes)
     return root(radicando, indice)
