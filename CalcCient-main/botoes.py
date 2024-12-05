@@ -1,4 +1,5 @@
-from calculadora import calcular
+from calculadora import *
+from ui import tela
 
 N = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 cont = 0
@@ -10,12 +11,12 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
         case 1:
             shift = True
             alpha = False
-            return equacao, shift, alpha, False, A, B, C, D, E, F, X, Y, M
+            return equacao, resultado, shift, alpha, False, A, B, C, D, E, F, X, Y, M
         # ALPHA
         case 2:
             alpha = True
             shift = False
-            return equacao, shift, alpha, False, A, B, C, D, E, F, X, Y, M
+            return equacao, resultado, shift, alpha, False, A, B, C, D, E, F, X, Y, M
         # REPLAY
         case 3:
             return "Executando o case 1"
@@ -70,7 +71,11 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
             if not shift:
                 equacao.append('^')
             if shift:
-                equacao.append('√')
+                # equacao.append('√')
+                indice = raiz_while(equacao, '')
+                radicando = raiz_while(equacao, indice)
+                resultado = calcular_raiz(indice, radicando)
+                equacao.append(resultado)
         # log   # 10^x
         case 14:
             if not shift:
@@ -152,7 +157,7 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
                 ''
             if shift:
                 store = True
-                return equacao, False, False, store, A, B, C, D, E, F, X, Y, M
+                return equacao, resultado, False, False, False, A, B, C, D, E, F, X, Y, M
         # ENG   # <--
         case 23:
             return "Executando o case 1"
@@ -260,7 +265,32 @@ def switch_case(equacao, resultado, case, shift, alpha, store, A, B, C, D, E, F,
         case 47:
             if not shift:
                 resultado = calcular(equacao)
+                equacao = []
             if shift:
                 equacao.append('%')
 #          equacao, resultado, shift, alpha, store, A, B, C, D, E, F, X, Y, M
     return equacao, resultado, False, False, False, A, B, C, D, E, F, X, Y, M
+
+# O indice so vai ser usado para poder manter o print na calculadora
+def raiz_while(equacao, indice):
+    resultado = A = B = C = D = E = F = X = Y = M = None
+    shift = alpha = store = False
+    expressao = []
+    while True:
+        input_char = input("Indice da raiz: ")
+        expressao, resultado, shift, alpha, store, A, B, C, D, E, F, X, Y, M = switch_case(expressao, resultado, input_char, shift, alpha, store, A, B, C, D, E, F, X, Y, M)
+        equacaoComRaiz = equacao.copy()
+        print(equacaoComRaiz)
+        equacaoComRaiz.append(indice)
+        print(equacaoComRaiz)
+        if indice != '':
+            equacaoComRaiz += '√'
+        equacaoComRaiz += expressao
+        if indice == '':
+            equacaoComRaiz.append('√')
+        equacaoComRaizString = ''.join(str(char) for char in equacaoComRaiz)
+        tela(equacaoComRaizString, resultado, shift, alpha)
+        if ')' in expressao:
+            expressao = ''.join(str(char) for char in expressao)
+            expressao = expressao.replace('(', '').replace(')', '')
+            return expressao
